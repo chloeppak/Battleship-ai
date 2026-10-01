@@ -4,8 +4,9 @@ This file records real problems found while building and testing the game. Nothi
 
 Status key: **Fixed** = resolved in the code; **Open** = known and not yet resolved.
 
-All four bugs below were found during development testing and fixed before the first commit
+Bugs 1–4 were found during development testing and fixed before the first commit
 (`Add Battleship game with computer opponent, tests and README`), so they do not appear as separate commits in the history.
+Bug 5 was found during the recorded browser test and fixed in a later commit.
 
 ---
 
@@ -44,6 +45,14 @@ All four bugs below were found during development testing and fixed before the f
 
 ---
 
-## Known limitations (Open)
+## 5. Battle log ran off the bottom of smaller laptop screens — Fixed
 
-- **Battle log needs scrolling on smaller laptop screens.** At 1366×768 the side panel's battle log can extend below the visible area once it fills up; the list scrolls, but the newest entries are always at the top. Noted during the recorded browser test; not changed.
+- **Where:** "Battle log" in the side panel (`styles.css`, `index.html`, `src/app.js`).
+- **What happened:** At 1366×768, a common laptop size, the battle log sat below the instructions and key. Once a few shots had been fired, it extended past the bottom of the window. You had to scroll the page to see the log, and if you had scrolled inside the log, the newest entry could be out of view.
+- **How it was found:** Recorded browser test at 1366×768, listed here as an open limitation in the first version of this file.
+- **Cause:** The side panel grew to fit its contents instead of matching the height of the two boards. The log also had a fixed maximum height (210 pixels) and didn't scroll back to the newest entry.
+- **Fix:**
+  - On wide screens, the side panel now matches the boards' height, and the battle log fills whatever space is left with its own scroll bar. The whole page fits on a 1366×768 screen without scrolling.
+  - On short screens, the instructions use slightly smaller text so more of the log is visible.
+  - The log jumps back to the top whenever a new shot is added, so the newest entry is always visible. A "Newest first" label makes the order clear.
+- **Verified:** Browser check at 1366×768 after 21 shots: the page doesn't scroll and all three buttons and the status bar are at the top. The log is fully on screen with four entries visible, and the newest one stays visible even after scrolling the log down and firing again. At 1440×900, the page also fits on screen and the newest log entry is visible. In windows narrower than 1240 pixels (checked at 1100×800), the side panel moves below the boards by design, so you scroll the page down to reach the log. All 16 automated tests still pass.

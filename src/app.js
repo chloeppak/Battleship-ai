@@ -182,6 +182,7 @@
     item.className = 'log-' + who;
     item.textContent = message;
     els.log.prepend(item);
+    els.log.scrollTop = 0;
     while (els.log.children.length > LOG_LIMIT) els.log.lastChild.remove();
   }
 
