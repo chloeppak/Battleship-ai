@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Battleship</title>
+  <meta name="description" content="Play Battleship against the computer in your browser.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#computer-board">Skip to the computer's board</a>
+
+  <header class="site-header">
+    <div class="title-block">
+      <h1>Battleship</h1>
+      <p class="tagline">Sink the computer's fleet before it sinks yours.</p>
+    </div>
+    <div class="controls" role="group" aria-label="Game controls">
+      <button type="button" id="randomize-btn" class="btn btn-secondary">Randomize my ships</button>
+      <button type="button" id="start-btn" class="btn btn-primary">Start game</button>
+      <button type="button" id="new-game-btn" class="btn btn-ghost">New game</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="layout">
+      <section class="panel board-panel" aria-labelledby="player-board-title">
+        <div class="panel-heading">
+          <h2 id="player-board-title">Your fleet</h2>
+          <p class="shot-count" id="computer-shots">Computer shots: 0</p>
+        </div>
+        <div id="player-board" class="board" role="grid" aria-labelledby="player-board-title" aria-readonly="true"></div>
+        <ul id="player-fleet" class="fleet" aria-label="Your ships"></ul>
+      </section>
+
+      <section class="panel board-panel" aria-labelledby="computer-board-title">
+        <div class="panel-heading">
+          <h2 id="computer-board-title">Computer's waters</h2>
+          <p class="shot-count" id="player-shots">Your shots: 0</p>
+        </div>
+        <div id="computer-board" class="board board-target" role="grid" aria-labelledby="computer-board-title" aria-describedby="target-help"></div>
+        <p id="target-help" class="visually-hidden">Choose a square to fire at. Use the arrow keys to move between squares and Enter or Space to fire.</p>
+        <ul id="computer-fleet" class="fleet" aria-label="Computer's ships"></ul>
+      </section>
+
+      <aside class="panel side-panel">
+        <h2>How to play</h2>
+        <ol class="instructions">
+          <li>Your ships are placed for you. Click <strong>Randomize my ships</strong> to shuffle them.</li>
+          <li>Click <strong>Start game</strong> when you are happy with your layout.</li>
+          <li>Click a square on the <strong>Computer's waters</strong> board to fire. The computer fires back after each shot.</li>
+          <li>Sink all five enemy ships before the computer sinks yours. Click <strong>New game</strong> to start over at any time.</li>
+        </ol>
+
+        <h2>Key</h2>
+        <ul class="legend">
+          <li><span class="swatch cell-ship" aria-hidden="true"></span> Your ship</li>
+          <li><span class="swatch cell-hit" aria-hidden="true"><span class="mark">&#x2715;</span></span> Hit</li>
+          <li><span class="swatch cell-sunk" aria-hidden="true"><span class="mark">&#x2715;</span></span> Sunk ship</li>
+          <li><span class="swatch cell-miss" aria-hidden="true"><span class="mark">&#x2022;</span></span> Miss</li>
+        </ul>
+
+        <h2>Battle log</h2>
+        <ol id="log" class="log" aria-label="Battle log, newest first"></ol>
+      </aside>
+    </div>
+  </main>
+
+  <script src="src/game.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
