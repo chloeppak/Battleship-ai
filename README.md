@@ -2,6 +2,8 @@
 
 A simple, browser-based Battleship game where you play against a computer opponent.
 
+**Play it live:** https://chloeppak.github.io/Battleship-ai/
+
 It is a static web app: plain HTML, CSS and JavaScript with no build step, no server,
 no database, no login, no third-party services and no secret keys.
 
@@ -70,7 +72,7 @@ Because the game is just static files, it can be hosted for free on any static h
 1. In this repository on GitHub, open **Settings → Pages**.
 2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
 3. Choose the `main` branch and the `/ (root)` folder, then click **Save**.
-4. After a minute or two the game is live at `https://chloeppak.github.io/Battleship-ai/`.
+4. After a minute or two the game is live at https://chloeppak.github.io/Battleship-ai/.
 
 Other static hosts (Netlify, Cloudflare Pages, Vercel) work the same way: point them at the repository root with no build command.
 
