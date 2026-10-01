@@ -54,6 +54,7 @@ npm test
 | `src/game.js` | Game rules and the computer opponent, independent of the page |
 | `src/app.js` | Draws the boards and connects clicks and key presses to the rules |
 | `tests/game.test.js` | Automated tests for the game rules |
+| `BUGS.md` | Problems found during development and testing, and how they were fixed |
 
 ### How the computer plays
 
