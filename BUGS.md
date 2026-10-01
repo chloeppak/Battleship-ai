@@ -6,7 +6,7 @@ Status key: **Fixed** = resolved in the code; **Open** = known and not yet resol
 
 Bugs 1–4 were found during development testing and fixed before the first commit
 (`Add Battleship game with computer opponent, tests and README`), so they do not appear as separate commits in the history.
-Bug 5 was found during the recorded browser test, and bugs 6 and 7 were found by an automated code review (Devin Review) of the pull request. Each of these was fixed in a later commit.
+Bug 5 was found during the recorded browser test, and bugs 6, 7 and 8 were found by an automated code review (Devin Review) of the pull request. Each of these was fixed in a later commit.
 
 ---
 
@@ -77,3 +77,21 @@ Bug 5 was found during the recorded browser test, and bugs 6 and 7 were found by
   - The three buttons share the full width, so they wrap neatly.
   - The boards now stack one above the other below 920 pixels instead of 860.
 - **Verified:** At 390×844 in a phone-style browser with touch, the page is exactly 390 pixels wide with no sideways scrolling. All 100 squares of the computer's board are fully on screen (about 30 pixels each) and nothing covers them. I played a full game by tapping, through to the end screen, then tapped New game, with no errors. I also checked 320×640 (smallest common phone, squares about 23 pixels), 880×900 and 1024×768: no sideways scrolling at any of them. The 1366×768 laptop layout from bug 5 is unchanged: no page scrolling, and the newest log entry is visible.
+
+## 8. Battle log only kept the last eight entries — Fixed
+
+- **Where:** Battle log (`addLog` in `src/app.js`, plus `index.html` and `styles.css`).
+- **What happened:** The battle log kept only the eight most recent messages and deleted older ones. A normal game has well over 100 messages (one per shot for each side), so you couldn't scroll back to review earlier shots.
+- **How it was found:** Automated code review of the pull request flagged it, and the code confirmed it: a fixed limit of 8 (`LOG_LIMIT`) and a line removing anything beyond it.
+- **Cause:** The limit dated from before the log had its own scroll area (bug 5). Once the log could scroll, the limit was no longer needed and just threw history away.
+- **Fix:**
+  - Removed the limit, so the log keeps every message from the current game. "New game" still clears it.
+  - The log stays the same size on the page and scrolls inside its own area. The newest message stays at the top and comes back into view whenever a shot is added.
+  - Keyboard users can now Tab to the log and scroll it with the arrow, Page Up/Down, Home and End keys, with a visible focus outline.
+- **Verified:**
+  - At 1366×768, I played a full game (69 shots each, ending in a loss) and the log held all 140 messages, from "The game has started." to "The computer won the game.". The log stayed 155 pixels tall with its own scroll bar, and the page itself still didn't scroll.
+  - Every 10 shots I scrolled the log to the very bottom before firing. After every one of the 69 shots, the newest entry was back at the top and fully visible.
+  - Scrolling to the bottom showed "The game has started.", and New game emptied the log.
+  - At 390×844 on a phone-style browser, a full game kept all 84 messages in a 210-pixel scroll area with the same newest-entry check. There were no console errors.
+  - Keyboard scrolling of the log worked.
+  - All 17 automated tests pass.

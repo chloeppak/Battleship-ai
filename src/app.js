@@ -8,7 +8,6 @@
   const B = window.Battleship;
   const SIZE = B.BOARD_SIZE;
   const COMPUTER_DELAY_MS = 450;
-  const LOG_LIMIT = 8;
 
   const els = {
     status: document.getElementById('status'),
@@ -183,7 +182,6 @@
     item.textContent = message;
     els.log.prepend(item);
     els.log.scrollTop = 0;
-    while (els.log.children.length > LOG_LIMIT) els.log.lastChild.remove();
   }
 
   function describeShot(result, shooter) {

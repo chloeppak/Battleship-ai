@@ -85,7 +85,7 @@ h1 { margin: 0; font-size: 1.9rem; letter-spacing: -0.02em; }
 .btn-ghost { background: #fff; color: var(--text); border-color: var(--border); }
 .btn-ghost:hover { border-color: var(--muted); }
 
-button:focus-visible, a:focus-visible {
+button:focus-visible, a:focus-visible, .log:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
 }
