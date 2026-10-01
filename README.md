@@ -36,7 +36,8 @@ python3 -m http.server 8080
 
 ## Running the tests
 
-The automated tests cover the core game rules: board size, fleet, ship placement (no overlaps, nothing off the board),
+The automated tests cover the core game rules: board size, fleet, ship placement (no overlaps, nothing off the board,
+always finishes even with a predictable random number source),
 hits and misses, no repeated shots for either side, sinking ships, turn order, winning, losing and resetting.
 
 They use Node.js's built-in test runner, so there are no packages to install. You need [Node.js](https://nodejs.org/) 18 or newer.

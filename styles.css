@@ -262,13 +262,23 @@ button.cell:disabled { cursor: default; }
   .log { flex: none; min-height: 0; max-height: 210px; }
 }
 
-@media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
-  .board-panel { justify-self: center; }
+@media (max-width: 920px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .board-panel { justify-self: center; max-width: 100%; }
   :root { --cell: 30px; }
 }
 
-@media (max-height: 820px) and (min-width: 861px) {
+/* Phones: shrink squares so the label column, ten squares, their gaps and the page and panel padding fit the screen width. */
+@media (max-width: 480px) {
+  :root { --cell: clamp(22px, calc((100vw - 92px) / 10), 30px); }
+  .site-header { padding: 14px 12px 10px; }
+  main { padding: 0 12px 24px; }
+  .panel { padding: 12px; }
+  .controls { width: 100%; }
+  .controls .btn { flex: 1 1 auto; padding: 10px 12px; }
+}
+
+@media (max-height: 820px) and (min-width: 921px) {
   :root { --cell: 31px; }
   .site-header { padding-top: 14px; padding-bottom: 10px; }
   .status { min-height: 46px; padding: 10px 16px; margin-bottom: 12px; }

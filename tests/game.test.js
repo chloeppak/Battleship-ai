@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const B = require('../src/game.js');
 
 // Small repeatable random number generator so test runs are reproducible.
@@ -78,6 +80,43 @@ test('ships cannot overlap', () => {
 test('random placement always produces a complete, legal fleet', () => {
   for (let seed = 1; seed <= 500; seed++) {
     assertValidFleet(B.randomFleetBoard(seededRandom(seed)));
+  }
+});
+
+test('fleet generation and a full game finish even when the random number function always returns the same value', () => {
+  // Runs in a separate process with a time limit: an endless loop would block
+  // this test runner forever instead of failing.
+  const gamePath = JSON.stringify(path.join(__dirname, '..', 'src', 'game.js'));
+  const script = `
+    const B = require(${gamePath});
+    const results = [];
+    for (const value of [0, 0.25, 0.5, 0.999999, 1, -1, NaN]) {
+      const rng = () => value;
+      const board = B.randomFleetBoard(rng);
+      const game = B.createGame(rng);
+      B.randomizePlayerShips(game);
+      const fleets = [game.playerBoard.ships, game.computerBoard.ships];
+      B.startGame(game);
+      for (let r = 0; r < 10 && game.phase === 'playing'; r++) {
+        for (let c = 0; c < 10 && game.phase === 'playing'; c++) {
+          if (!B.playerFire(game, r, c).valid) throw new Error('player shot rejected');
+          if (game.phase === 'playing' && !B.computerFire(game).valid) throw new Error('computer shot rejected');
+        }
+      }
+      if (game.phase !== 'over') throw new Error('game did not finish');
+      results.push({ ships: board.ships, gameShips: fleets });
+    }
+    process.stdout.write(JSON.stringify(results));
+  `;
+  const run = spawnSync(process.execPath, ['-e', script], { timeout: 5000, encoding: 'utf8' });
+  assert.notEqual(run.error && run.error.code, 'ETIMEDOUT', 'fleet generation did not finish within 5 seconds');
+  assert.equal(run.status, 0, run.stderr);
+  for (const result of JSON.parse(run.stdout)) {
+    for (const ships of [result.ships, ...result.gameShips]) {
+      const board = B.createBoard();
+      board.ships = ships;
+      assertValidFleet(board);
+    }
   }
 });
 

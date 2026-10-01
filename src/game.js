@@ -91,24 +91,44 @@
     return ship;
   }
 
+  // Returns a whole number from 0 to max - 1, even if rng misbehaves
+  // (for example returns 1, a negative number or NaN).
   function randomInt(rng, max) {
-    return Math.floor(rng() * max);
+    const index = Math.floor(rng() * max);
+    if (!(index >= 0)) return 0;
+    return Math.min(index, max - 1);
   }
 
+  function legalPlacements(board, length) {
+    const placements = [];
+    for (let row = 0; row < BOARD_SIZE; row++) {
+      for (let col = 0; col < BOARD_SIZE; col++) {
+        for (const horizontal of [true, false]) {
+          if (canPlaceShip(board, length, row, col, horizontal)) {
+            placements.push({ row: row, col: col, horizontal: horizontal });
+          }
+        }
+      }
+    }
+    return placements;
+  }
+
+  /*
+   * Places each ship by picking one of its currently legal positions, so it
+   * always finishes in a single pass no matter what rng returns. A legal
+   * position always exists: the ships placed before any given ship cover too
+   * few squares to block every spot it could go.
+   */
   function randomFleetBoard(rng) {
     rng = rng || Math.random;
     const board = createBoard();
     for (const shipType of FLEET) {
-      let placed = false;
-      while (!placed) {
-        const horizontal = rng() < 0.5;
-        const row = randomInt(rng, BOARD_SIZE);
-        const col = randomInt(rng, BOARD_SIZE);
-        if (canPlaceShip(board, shipType.length, row, col, horizontal)) {
-          placeShip(board, shipType, row, col, horizontal);
-          placed = true;
-        }
+      const options = legalPlacements(board, shipType.length);
+      if (options.length === 0) {
+        throw new Error('No legal position left for ' + shipType.name + '.');
       }
+      const choice = options[randomInt(rng, options.length)];
+      placeShip(board, shipType, choice.row, choice.col, choice.horizontal);
     }
     return board;
   }
