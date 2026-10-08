@@ -1,6 +1,6 @@
-# Battleship
+# Battleship ATL
 
-A simple, browser-based Battleship game where you play against a computer opponent.
+A simple, browser-based, Atlanta-themed Battleship game where you battle a computer "rival crew" for control of the Chattahoochee.
 
 **Play it live:** https://chloeppak.github.io/Battleship-ai/
 
@@ -9,14 +9,14 @@ no database, no login, no third-party services and no secret keys.
 
 ## How to play
 
-1. Your five ships are placed on your board for you. Click **Randomize my ships** to shuffle them.
+1. Your five boats are docked on your board for you. Click **Shuffle my boats** to move them.
 2. Click **Start game**.
-3. Click a square on the **Computer's waters** board to fire. Hits show as a red square with an ✕, misses as a dot.
-   After each of your shots the computer fires once at your board.
-4. Sink all five enemy ships (lengths 5, 4, 3, 3 and 2) before the computer sinks yours.
+3. Click a square on the **Rival's waters** board to fire. Hits show as a red square with an ✕, misses as a dot.
+   After each of your shots the rival crew fires once at your board.
+4. Sink all five rival boats before they sink yours: *Peachtree* (5), *Buckhead* (4), *Midtown* (3), *Little Five* (3) and *Decatur* (2).
 5. Click **New game** at any time to start over.
 
-Keyboard players can Tab to the computer's board, move with the arrow keys, and press Enter or Space to fire.
+Keyboard players can Tab to the rival's board, move with the arrow keys, and press Enter or Space to fire.
 
 ## Running it locally
 
@@ -78,7 +78,7 @@ Other static hosts (Netlify, Cloudflare Pages, Vercel) work the same way: point 
 
 ## Accessibility
 
-- Every button and board square has a text label for screen readers (for example "C4, hit, Cruiser sunk").
+- Every button and board square has a text label for screen readers (for example "C4, hit, Midtown sunk").
 - Game messages are announced through a live status region.
 - Hits and misses use symbols (✕ and •) as well as colour, so they don't rely on colour alone.
 - Text and key colours meet WCAG AA contrast, and keyboard focus is clearly outlined.

@@ -1,19 +1,22 @@
 :root {
-  --bg: #eef2f7;
+  --bg: #fbf3ea;
   --panel: #ffffff;
-  --text: #17202c;
-  --muted: #4a5668;
-  --border: #d3dae4;
-  --primary: #1d4ed8;
-  --primary-hover: #1e40af;
-  --water: #dbe8f7;
-  --water-hover: #b9d3f1;
-  --ship: #4b5a70;
-  --revealed: #8a97ab;
-  --hit: #c0262d;
-  --sunk: #6e1018;
-  --miss-dot: #3f4b5c;
-  --focus: #f59e0b;
+  --text: #1f1a17;
+  --muted: #5a4d44;
+  --border: #e6d6c6;
+  --primary: #b4400f;
+  --primary-hover: #8f330c;
+  --navy: #1f2a44;
+  --peach: #f6a96b;
+  --water: #d3e7ea;
+  --water-hover: #aed3d9;
+  --water-border: #a9cdd3;
+  --ship: #2f5d50;
+  --revealed: #8fb3a8;
+  --hit: #c8312b;
+  --sunk: #6b1414;
+  --miss-dot: #2c4a52;
+  --focus: #e08a00;
   --win: #136c3a;
   --win-bg: #e3f5ea;
   --lose: #9b1c22;
@@ -59,13 +62,32 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  position: relative;
+  overflow: hidden;
   max-width: 1320px;
-  margin: 0 auto;
-  padding: 20px 24px 12px;
+  margin: 0 auto 16px;
+  padding: 18px 24px 40px;
+  color: #fff;
+  background: linear-gradient(160deg, var(--navy) 0%, #2d3b5e 55%, #7a3b2e 100%);
+  border-radius: 0 0 var(--radius) var(--radius);
 }
+.skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 64px;
+  fill: var(--peach);
+  opacity: 0.28;
+  pointer-events: none;
+}
+.title-block, .controls { position: relative; }
 
+.kicker { margin: 0; color: var(--peach); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 h1 { margin: 0; font-size: 1.9rem; letter-spacing: -0.02em; }
-.tagline { margin: 2px 0 0; color: var(--muted); }
+.h1-accent { color: var(--peach); }
+.tagline { margin: 2px 0 0; color: #f3dccb; }
 
 .controls { display: flex; flex-wrap: wrap; gap: 10px; }
 
@@ -81,7 +103,7 @@ h1 { margin: 0; font-size: 1.9rem; letter-spacing: -0.02em; }
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:not(:disabled):hover { background: var(--primary-hover); }
 .btn-secondary { background: #fff; color: var(--primary); border-color: var(--primary); }
-.btn-secondary:not(:disabled):hover { background: #eaf0fd; }
+.btn-secondary:not(:disabled):hover { background: #fdeee4; }
 .btn-ghost { background: #fff; color: var(--text); border-color: var(--border); }
 .btn-ghost:hover { border-color: var(--muted); }
 
@@ -158,7 +180,7 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 24px 32px; }
   width: var(--cell);
   height: var(--cell);
   border-radius: 4px;
-  border: 1px solid #c3d4ea;
+  border: 1px solid var(--water-border);
   background: var(--water);
   display: flex;
   align-items: center;
@@ -220,7 +242,7 @@ button.cell:disabled { cursor: default; }
   width: 22px;
   height: 22px;
   border-radius: 4px;
-  border: 1px solid #c3d4ea;
+  border: 1px solid var(--water-border);
   background: var(--water);
   display: inline-flex;
   align-items: center;
@@ -252,7 +274,7 @@ button.cell:disabled { cursor: default; }
 }
 .log:empty::before { content: "No shots yet."; color: var(--muted); }
 .log li { padding: 5px 8px; border-left: 3px solid var(--border); margin-bottom: 3px; }
-.log li:first-child { background: #f5f7fa; }
+.log li:first-child { background: #fdf6ef; }
 .log-player { border-left-color: var(--primary) !important; }
 .log-computer { border-left-color: var(--hit) !important; }
 
@@ -271,7 +293,7 @@ button.cell:disabled { cursor: default; }
 /* Phones: shrink squares so the label column, ten squares, their gaps and the page and panel padding fit the screen width. */
 @media (max-width: 480px) {
   :root { --cell: clamp(22px, calc((100vw - 92px) / 10), 30px); }
-  .site-header { padding: 14px 12px 10px; }
+  .site-header { padding: 14px 12px 34px; border-radius: 0; }
   main { padding: 0 12px 24px; }
   .panel { padding: 12px; }
   .controls { width: 100%; }
@@ -280,7 +302,7 @@ button.cell:disabled { cursor: default; }
 
 @media (max-height: 820px) and (min-width: 921px) {
   :root { --cell: 31px; }
-  .site-header { padding-top: 14px; padding-bottom: 10px; }
+  .site-header { padding-top: 12px; padding-bottom: 32px; margin-bottom: 12px; }
   .status { min-height: 46px; padding: 10px 16px; margin-bottom: 12px; }
   .panel { padding: 12px 16px; }
   .fleet { margin-top: 10px; gap: 2px; }
