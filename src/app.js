@@ -163,9 +163,9 @@
     els.computerBoard.classList.toggle('is-active', game.phase === 'playing' && game.turn === 'player');
 
     renderFleet(els.playerFleet, game.playerBoard, 'Your');
-    renderFleet(els.computerFleet, game.computerBoard, "Computer's");
+    renderFleet(els.computerFleet, game.computerBoard, "Rival crew's");
     els.playerShots.textContent = 'Your shots: ' + game.playerShots;
-    els.computerShots.textContent = 'Computer shots: ' + game.computerShots;
+    els.computerShots.textContent = 'Rival shots: ' + game.computerShots;
 
     els.randomize.disabled = game.phase !== 'setup';
     els.start.disabled = game.phase !== 'setup';
@@ -186,22 +186,22 @@
 
   function describeShot(result, shooter) {
     const where = B.coordinateName(result.row, result.col);
-    if (!result.hit) return shooter === 'player' ? 'You fired at ' + where + ': miss.' : 'Computer fired at ' + where + ': miss.';
+    if (!result.hit) return shooter === 'player' ? 'You fired at ' + where + ': splash, miss.' : 'The rival crew fired at ' + where + ': splash, miss.';
     if (result.sunk) {
       return shooter === 'player'
-        ? 'You fired at ' + where + ': hit! You sank the computer\u2019s ' + result.ship.name + '!'
-        : 'Computer fired at ' + where + ': hit. It sank your ' + result.ship.name + '!';
+        ? 'You fired at ' + where + ': hit! You sank the rival\u2019s ' + result.ship.name + '!'
+        : 'The rival crew fired at ' + where + ': hit. They sank your ' + result.ship.name + '!';
     }
-    return shooter === 'player' ? 'You fired at ' + where + ': hit!' : 'Computer fired at ' + where + ': hit on your ' + result.ship.name + '.';
+    return shooter === 'player' ? 'You fired at ' + where + ': hit!' : 'The rival crew fired at ' + where + ': hit on your ' + result.ship.name + '.';
   }
 
   function announceGameOver() {
     if (game.winner === 'player') {
-      setStatus('You win! You sank the whole enemy fleet in ' + game.playerShots + ' shots. Click New game to play again.', 'win');
-      addLog('You won the game.', 'player');
+      setStatus('You win! The Chattahoochee is yours \u2014 you sank the whole rival fleet in ' + game.playerShots + ' shots. Click New game to play again.', 'win');
+      addLog('You won the game. ATL is yours.', 'player');
     } else {
-      setStatus('You lose. The computer sank your whole fleet in ' + game.computerShots + ' shots. Its remaining ships are now shown. Click New game to try again.', 'lose');
-      addLog('The computer won the game.', 'computer');
+      setStatus('You lose. The rival crew sank your whole fleet in ' + game.computerShots + ' shots. Their remaining boats are now shown. Click New game to try again.', 'lose');
+      addLog('The rival crew won the game.', 'computer');
     }
   }
 
@@ -223,7 +223,7 @@
       return;
     }
     lastPlayerMessage = message;
-    setStatus(message + ' The computer is aiming\u2026', result.sunk ? 'good' : null);
+    setStatus(message + ' The rival crew is aiming\u2026', result.sunk ? 'good' : null);
     computerTimer = setTimeout(computerTurn, COMPUTER_DELAY_MS);
   }
 
@@ -291,20 +291,20 @@
     focusCol = 0;
     els.log.textContent = '';
     render();
-    setStatus('Your ships are placed. Click Randomize my ships to shuffle them, or Start game when you are ready.');
+    setStatus('Your boats are docked on the Chattahoochee. Click Shuffle my boats to move them, or Start game when you are ready.');
   }
 
   els.randomize.addEventListener('click', function () {
     if (B.randomizePlayerShips(game)) {
       render();
-      setStatus('Your ships have been shuffled. Click Start game when you are ready.');
+      setStatus('Your boats have been shuffled. Click Start game when you are ready.');
     }
   });
 
   els.start.addEventListener('click', function () {
     if (B.startGame(game)) {
       render();
-      setStatus('Game on! Fire by clicking a square on the Computer\u2019s waters board.');
+      setStatus('Game on, ATL! Fire by clicking a square on the Rival\u2019s waters board.');
       addLog('The game has started.', 'system');
       moveFocus(focusRow, focusCol);
     }

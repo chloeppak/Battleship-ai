@@ -3,21 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Battleship</title>
-  <meta name="description" content="Play Battleship against the computer in your browser.">
+  <title>Battleship ATL</title>
+  <meta name="description" content="Play Atlanta-themed Battleship on the Chattahoochee against the computer in your browser.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#computer-board">Skip to the computer's board</a>
+  <a class="skip-link" href="#computer-board">Skip to the rival's board</a>
 
   <header class="site-header">
+    <svg class="skyline" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path d="M0 90V70h40V52h28v18h22V40h34v30h18V58h26v12h30V30h16V18h6V8h4v10h6v12h16v40h24V46h36v24h20V60h30v10h26V24l22-14 22 14v46h18V54h34v16h28V36h40v34h22V50h30v20h26V64h18v6h30V42h36v28h20V56h28v14h30V20h10V4h4v16h10v50h26V48h34v22h24V60h30v10h24V38h38v32h22V54h30v16h30V66h40v24z"/>
+    </svg>
     <div class="title-block">
-      <h1>Battleship</h1>
-      <p class="tagline">Sink the computer's fleet before it sinks yours.</p>
+      <p class="kicker">The A presents</p>
+      <h1>Battleship <span class="h1-accent">ATL</span></h1>
+      <p class="tagline">Sink the rival crew before they run you off the Chattahoochee.</p>
     </div>
     <div class="controls" role="group" aria-label="Game controls">
-      <button type="button" id="randomize-btn" class="btn btn-secondary">Randomize my ships</button>
+      <button type="button" id="randomize-btn" class="btn btn-secondary">Shuffle my boats</button>
       <button type="button" id="start-btn" class="btn btn-primary">Start game</button>
       <button type="button" id="new-game-btn" class="btn btn-ghost">New game</button>
     </div>
@@ -30,37 +34,37 @@
       <section class="panel board-panel" aria-labelledby="player-board-title">
         <div class="panel-heading">
           <h2 id="player-board-title">Your fleet</h2>
-          <p class="shot-count" id="computer-shots">Computer shots: 0</p>
+          <p class="shot-count" id="computer-shots">Rival shots: 0</p>
         </div>
         <div id="player-board" class="board" role="grid" aria-labelledby="player-board-title" aria-readonly="true"></div>
-        <ul id="player-fleet" class="fleet" aria-label="Your ships"></ul>
+        <ul id="player-fleet" class="fleet" aria-label="Your boats"></ul>
       </section>
 
       <section class="panel board-panel" aria-labelledby="computer-board-title">
         <div class="panel-heading">
-          <h2 id="computer-board-title">Computer's waters</h2>
+          <h2 id="computer-board-title">Rival's waters</h2>
           <p class="shot-count" id="player-shots">Your shots: 0</p>
         </div>
         <div id="computer-board" class="board board-target" role="grid" aria-labelledby="computer-board-title" aria-describedby="target-help"></div>
         <p id="target-help" class="visually-hidden">Choose a square to fire at. Use the arrow keys to move between squares and Enter or Space to fire.</p>
-        <ul id="computer-fleet" class="fleet" aria-label="Computer's ships"></ul>
+        <ul id="computer-fleet" class="fleet" aria-label="Rival crew's boats"></ul>
       </section>
 
       <aside class="panel side-panel">
         <h2>How to play</h2>
         <ol class="instructions">
-          <li>Your ships are placed for you. Click <strong>Randomize my ships</strong> to shuffle them.</li>
+          <li>Your five boats are docked on the Chattahoochee for you. Click <strong>Shuffle my boats</strong> to move them.</li>
           <li>Click <strong>Start game</strong> when you are happy with your layout.</li>
-          <li>Click a square on the <strong>Computer's waters</strong> board to fire. The computer fires back after each shot.</li>
-          <li>Sink all five enemy ships before the computer sinks yours. Click <strong>New game</strong> to start over at any time.</li>
+          <li>Click a square on the <strong>Rival's waters</strong> board to fire. The rival crew fires back after each shot.</li>
+          <li>Sink all five rival boats, from the <em>Peachtree</em> to the <em>Decatur</em>, before they sink yours. Click <strong>New game</strong> to start over at any time.</li>
         </ol>
 
         <h2>Key</h2>
         <ul class="legend">
-          <li><span class="swatch cell-ship" aria-hidden="true"></span> Your ship</li>
+          <li><span class="swatch cell-ship" aria-hidden="true"></span> Your boat</li>
           <li><span class="swatch cell-hit" aria-hidden="true"><span class="mark">&#x2715;</span></span> Hit</li>
-          <li><span class="swatch cell-sunk" aria-hidden="true"><span class="mark">&#x2715;</span></span> Sunk ship</li>
-          <li><span class="swatch cell-miss" aria-hidden="true"><span class="mark">&#x2022;</span></span> Miss</li>
+          <li><span class="swatch cell-sunk" aria-hidden="true"><span class="mark">&#x2715;</span></span> Sunk boat</li>
+          <li><span class="swatch cell-miss" aria-hidden="true"><span class="mark">&#x2022;</span></span> Splash (miss)</li>
         </ul>
 
         <h2 class="log-heading">Battle log <span class="log-hint">Newest first</span></h2>

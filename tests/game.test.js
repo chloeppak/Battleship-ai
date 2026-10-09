@@ -122,7 +122,7 @@ test('fleet generation and a full game finish even when the random number functi
 
 test('shots are recorded as hits or misses and cannot repeat', () => {
   const board = B.createBoard();
-  B.placeShip(board, B.FLEET[4], 0, 0, true); // Destroyer A1, B1
+  B.placeShip(board, B.FLEET[4], 0, 0, true); // Decatur A1, B1
   const miss = B.receiveShot(board, 5, 5);
   assert.equal(miss.valid, true);
   assert.equal(miss.hit, false);
@@ -137,7 +137,7 @@ test('shots are recorded as hits or misses and cannot repeat', () => {
   assert.deepEqual(B.receiveShot(board, 0, 0), { valid: false, reason: 'already-fired' });
   assert.deepEqual(B.receiveShot(board, 5, 5), { valid: false, reason: 'already-fired' });
   assert.deepEqual(B.receiveShot(board, 10, 0), { valid: false, reason: 'off-board' });
-  assert.equal(shipByName(board, 'Destroyer').hits, 1);
+  assert.equal(shipByName(board, 'Decatur').hits, 1);
 });
 
 test('a ship is sunk when every square is hit, and the board is lost when all are sunk', () => {
@@ -147,7 +147,7 @@ test('a ship is sunk when every square is hit, and the board is lost when all ar
   B.receiveShot(board, 0, 0);
   const sinking = B.receiveShot(board, 0, 1);
   assert.equal(sinking.sunk, true);
-  assert.equal(sinking.ship.name, 'Destroyer');
+  assert.equal(sinking.ship.name, 'Decatur');
   assert.equal(B.allShipsSunk(board), false);
   B.receiveShot(board, 4, 4);
   B.receiveShot(board, 5, 4);
